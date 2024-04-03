@@ -1,0 +1,3 @@
+Ideas for Topics:
+- Newspaper site with articles
+- Online Shop for food/clothing/books/...
