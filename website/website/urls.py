@@ -21,5 +21,6 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("articles/", include("articles.urls")),
+    path("authors/", include("authors.urls")),
     path("", index, name="start_page"),
 ]
