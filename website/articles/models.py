@@ -18,6 +18,9 @@ class Article(models.Model):
         self.view_count += 1
         print("add view")
 
+    def __str__(self):
+        return self.heading
+
 
 class Comment(models.Model):
     article_ID = models.ForeignKey(Article, on_delete=models.CASCADE)
@@ -25,12 +28,21 @@ class Comment(models.Model):
     text = models.TextField(max_length=5000)
     pub_date = models.DateTimeField()
 
+    def __str__(self):
+        return self.heading
+
 
 class Tag(models.Model):
     text = models.CharField(max_length=50)
     count = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.text
+
 
 class Article_Tag(models.Model):
     article_ID = models.ForeignKey(Article, on_delete=models.CASCADE)
     tag_ID = models.ForeignKey(Tag, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.article_ID) + "+" + str(self.tag_ID)
