@@ -14,6 +14,10 @@ class Article(models.Model):
     )
     view_count = models.IntegerField(default=0)
 
+    def add_view(self):
+        self.view_count += 1
+        print("add view")
+
 
 class Comment(models.Model):
     article_ID = models.ForeignKey(Article, on_delete=models.CASCADE)

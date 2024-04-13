@@ -16,4 +16,7 @@ def home_view(request):
 
 def article(request, article_id):
     response = f"You're looking at article {article_id}"
+    article = Article.objects.get(id=article_id)
+    article.add_view()
+    article.save()
     return HttpResponse(response)

@@ -1,7 +1,11 @@
 {% if articles_list %}
     <div>
-    {% for article in articles_list %}
-        <p>{{ article.heading }}</p>
+      {% for article in articles_list %}
+      <div style="border: 2px solid black;">
+        <h1><a href="{% url 'article' article.id %}">{{ article.heading }}</a></h1>
+        <h5> {{ article.pub_date }} Views: {{ article.view_count }} <h5>
+        <p> {{ article.text }} </p>
+      </div>
     {% endfor %}
     </div>
 {% else %}
