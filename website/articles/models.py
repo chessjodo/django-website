@@ -20,3 +20,8 @@ class Comment(models.Model):
     heading = models.CharField(max_length=150)
     text = models.TextField(max_length=5000)
     pub_date = models.DateTimeField()
+
+
+class Tags(models.Model):
+    text = models.CharField(max_length=50)
+    count = models.IntegerField(default=0)
