@@ -12,3 +12,8 @@ def index(request):
 
 def home_view(request):
     return render(request, "home.html", {})
+
+
+def article(request, article_id):
+    response = f"You're looking at article {article_id}"
+    return HttpResponse(response)
