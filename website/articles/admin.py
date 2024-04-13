@@ -3,6 +3,13 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-models = (Article, Comment, Tag, Article_Tag)
+models = (Comment, Tag, Article_Tag)
 for m in models:
     admin.site.register(m)
+
+
+class ArticleAdmin(admin.ModelAdmin):
+    exclude = ("view_count",)
+
+
+admin.site.register(Article, ArticleAdmin)
