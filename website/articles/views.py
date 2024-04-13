@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import Article, Article_Tag, Comment, Tag
 
@@ -15,8 +15,5 @@ def home_view(request):
 
 
 def article(request, article_id):
-    response = f"You're looking at article {article_id}"
-    article = Article.objects.get(id=article_id)
-    article.add_view()
-    article.save()
-    return HttpResponse(response)
+    article = get_object_or_404(Article, pk=article_id)
+    return render(request, "articles/article.html", {"article": article})
