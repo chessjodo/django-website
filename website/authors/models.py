@@ -2,6 +2,11 @@ from articles.models import Article
 from django.db import models
 
 
+class Author_Manager(models.Manager):
+    def use_nat_keys(self, name):
+        return self.get(name=name)
+
+
 class Author(models.Model):
     name = models.CharField(max_length=50)
     bio_text = models.CharField(max_length=200)
