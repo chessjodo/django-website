@@ -1,0 +1,13 @@
+{% if articles_list %}
+    <div>
+      {% for article in articles_list %}
+      <div>
+        <h1>{{ article.heading }} ABCD</h1>
+        <h5> {{ article.pub_date }} Views: {{ article.view_count }} <h5>
+        <p> {{ article.text }} </p>
+      </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>No Articles are availabe.</p>
+{% endif %}
