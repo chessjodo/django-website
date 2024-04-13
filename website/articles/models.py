@@ -22,6 +22,11 @@ class Comment(models.Model):
     pub_date = models.DateTimeField()
 
 
-class Tags(models.Model):
+class Tag(models.Model):
     text = models.CharField(max_length=50)
     count = models.IntegerField(default=0)
+
+
+class Article_Tag(models.Model):
+    article_ID = models.ForeignKey(Article, on_delete=models.CASCADE)
+    tag_ID = models.ForeignKey(Tag, on_delete=models.CASCADE)
