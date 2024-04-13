@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ["linux.auc-computing.nl"]
 
 INSTALLED_APPS = [
     "articles.apps.ArticlesConfig",
+    "authors.apps.AuthorsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
