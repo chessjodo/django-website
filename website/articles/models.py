@@ -2,8 +2,14 @@ from django.db import models
 
 
 class Article(models.Model):
-    author = models.CharField(max_length=200)
-    # author = models.ForeignKey(Author)
-    title = models.CharField(max_length=150)
+    heading = models.CharField(max_length=150)
     text = models.TextField(max_length=10000)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField()
+    picture = models.ImageField(
+        upload_to="article_pictures/",
+        height_field=None,
+        width_field=None,
+        max_length=100,
+        blank=True,
+    )
+    view_count = models.IntegerField(default=0)
