@@ -1,9 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from .models import Article, Article_Tag, Comment, Tag
+
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the Articles index.")
+    articles = Article.objects.order_by("-pub_date")
+    context = {"articles_list": articles}
+    return render(request, "articles/index.html", context)
 
 
 def home_view(request):

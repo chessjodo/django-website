@@ -1,1 +1,9 @@
-<h>Hello</h>
+{% if articles_list %}
+    <div>
+    {% for article in articles_list %}
+        <p>{{ article.heading }}</p>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>No Articles are availabe.</p>
+{% endif %}
