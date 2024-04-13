@@ -9,8 +9,10 @@
     Published on {{article.pub_date.date}}<br>
     Views: {{article.view_count}}
   </p>
-  <body>
-    <p>{{article.text}}</p>
-  </body>
-  <img src={{article.picture}}>
+  <form method="post">
+    {% csrf_token %}
+    <label for="comment">Comment:</label>
+    <textarea id="comment" name="comment" required></textarea>
+    <button type="submit" value="Comment">Submit Comment</button>
+  </form>
 </html>
