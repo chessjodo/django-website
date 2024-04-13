@@ -13,3 +13,10 @@ class Article(models.Model):
         blank=True,
     )
     view_count = models.IntegerField(default=0)
+
+
+class Comment(models.Model):
+    article_ID = models.ForeignKey(Article, on_delete=models.CASCADE)
+    heading = models.CharField(max_length=150)
+    text = models.TextField(max_length=5000)
+    pub_date = models.DateTimeField()
