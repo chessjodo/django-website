@@ -1,0 +1,16 @@
+{% if authors_lst %}
+<div>
+  {% for author in authors_lst %}
+  <ul>
+    <li><a href="{% url "author"  author_id=author.pk %}">{{ author.name }}</a></li>
+
+  </ul>
+
+  {% endfor %}
+</div>
+
+{% else %}
+
+<p> No Authors yet, be the first to publish!</p>
+
+{% endif %}

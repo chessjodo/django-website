@@ -1,9 +1,18 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+
+from .models import Author, Author_Articles
 
 
 def index(request):
-    return HttpResponse("This is the authors index.")
+    authors = Author.objects.order_by("name")
+    context = {"authors_lst": authors}
+    return render(request, "index.html", context)
+
+
+def author(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    return render(request, "author.html", {"author": author})
 
 
 # Create your views here.
