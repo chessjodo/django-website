@@ -1,4 +1,3 @@
-from articles.models import Article
 from django.db import models
 
 
@@ -14,6 +13,8 @@ class Author(models.Model):
 
 
 class Author_Articles(models.Model):
+    from articles.models import Article
+
     author_id = models.OneToOneField(Author, on_delete=models.CASCADE)
     article_id = models.OneToOneField(Article, on_delete=models.CASCADE)
 

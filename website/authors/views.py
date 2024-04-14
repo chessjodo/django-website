@@ -11,8 +11,12 @@ def index(request):
 
 
 def author(request, author_id):
+    from articles.models import Article
+
     author = get_object_or_404(Author, pk=author_id)
-    return render(request, "author.html", {"author": author})
+    articles = Article.objects.filter(author=author)
+    context = {"author": author, "articles": articles}
+    return render(request, "author.html", context)
 
 
 # Create your views here.

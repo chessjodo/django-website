@@ -13,6 +13,9 @@ class Article(models.Model):
         blank=True,
     )
     view_count = models.IntegerField(default=0)
+    author = models.ForeignKey(
+        "authors.Author", on_delete=models.CASCADE, default=1
+    )
 
     def add_view(self):
         self.view_count += 1

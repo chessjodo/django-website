@@ -1,3 +1,19 @@
 <!-- placeholder -->
 
-<p> Author page </p>
+<h1>{{ author.name }}</h1>
+<p><i> About {{ author.name }}:</i></p>
+<p>{{ author.bio_text }}</p>
+
+<p><small> Bio last edited: {{ author.bio_edit }}</small></p>
+
+<h2>Articles Written by {{ author.name }}:</h2>
+<ul>
+  {% if articles %}
+    {% for article in articles %}
+    <li><a href="{% url 'article'  article.id %}">{{ article.heading }}</a></li>
+{% endfor %}
+</ul>
+
+{% else %}
+<p><i>{{ author.name }} has no RealNews to share:(</i></p>
+{% endif %}
