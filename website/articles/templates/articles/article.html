@@ -5,7 +5,7 @@
     <title>{{article.heading}}</title>
   </head>
   <h1>{{article.heading}}</h1>
-  <p>Written by: {{ article.author.name }}<br>
+  <p>Written by: <a href="{% url 'author' article.author.id %}">{{article.author.name }}</a> <br>
     Published on {{article.pub_date.date}}<br>
     Views: {{article.view_count}}
   </p>

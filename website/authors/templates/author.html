@@ -1,6 +1,10 @@
 <!-- placeholder -->
 
 <h1>{{ author.name }}</h1>
+{% if author.picture %}
+       <p> <img src="{{ author.picture.url  }}" alt="{{ author.name }}'s picture"</p>
+       {% endif %}
+
 <p><i> About {{ author.name }}:</i></p>
 <p>{{ author.bio_text }}</p>
 
