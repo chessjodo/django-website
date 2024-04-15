@@ -13,10 +13,18 @@
   {% if article.picture %}
     <img src="{{ article.picture.url }}" alt="a picture" style="max-width:500px">
   {% endif %}
+  <h2>Comments</h2>
   <form action="{% url 'comment' article.id %}" method="post">
     {% csrf_token %}
-    <label for="comment">Comment:</label>
-    <textarea id="comment" name="comment" required></textarea>
+    <label for="heading">Heading:</label>
+    <textarea id="heading" name="heading" required></textarea><br>
+    <label for="comment">Text:</label>
+    <textarea id="comment" name="comment" required></textarea><br>
     <button type="submit" value="Comment">Submit Comment</button>
   </form>
+
+  {% for comment in article.comment_set.all %}
+    <p><b>{{comment.heading}}</b> posted: {{comment.pub_date}}<br>
+      {{comment.text}}<p>
+  {% endfor %}
 </html>
