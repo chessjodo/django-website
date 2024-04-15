@@ -14,7 +14,7 @@
 <ul>
   {% if articles %}
     {% for article in articles %}
-    <li><a href="{% url 'article'  article.id %}">{{ article.heading }}</a></li>
+    <li><a href="{% url 'articles:article'  article.id %}">{{ article.heading }}</a></li>
 {% endfor %}
 </ul>
 
