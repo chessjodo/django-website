@@ -17,3 +17,6 @@ def home_view(request):
 def article(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     return render(request, "articles/article.html", {"article": article})
+
+def comment(request, article_id):
+    return HttpResponse(f"you commented on article {article_id}")

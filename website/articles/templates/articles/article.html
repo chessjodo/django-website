@@ -13,7 +13,7 @@
   {% if article.picture %}
     <img src="{{ article.picture.url }}" alt="a picture" style="max-width:500px">
   {% endif %}
-  <form method="post">
+  <form action="{% url 'comment' article.id %}" method="post">
     {% csrf_token %}
     <label for="comment">Comment:</label>
     <textarea id="comment" name="comment" required></textarea>
