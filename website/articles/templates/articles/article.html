@@ -9,6 +9,10 @@
     Published on {{article.pub_date.date}}<br>
     Views: {{article.view_count}}
   </p>
+  <p>{{article.text}}</p>
+  {% if article.picture %}
+    <img src="{{ article.picture.url }}" alt="a picture" style="max-width:500px">
+  {% endif %}
   <form method="post">
     {% csrf_token %}
     <label for="comment">Comment:</label>
