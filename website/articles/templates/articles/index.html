@@ -1,13 +1,22 @@
 {% if articles_list %}
-    <div>
-      {% for article in articles_list %}
-      <div style="border: 2px solid black;">
-        <h1><a href="{% url 'article' article.id %}">{{ article.heading }}</a></h1>
-        <h5> {{ article.pub_date }} Views: {{ article.view_count }} <h5>
-        <p> {{ article.text }} </p>
-      </div>
-    {% endfor %}
+  <form action="{% url 'articles:index'%}" method="get">
+    {% csrf_token %}
+    <select name="article-sort" id="article-sort", onchange='if(this.value != 0) { this.form.submit(); }'>
+      {% for option_value, option_label in sort_options %}
+        <option value="{{ option_value }}" {% if sort_order == option_value %} selected {% endif %}>{{ option_label }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <div>
+    {% for article in articles_list %}
+    <div style="border: 2px solid black;">
+      <h1><a href="{% url 'articles:article' article.id %}">{{ article.heading }}</a></h1>
+      <h5> {{ article.pub_date }} Views: {{ article.view_count }} <h5>
+      <p> {{ article.text }} </p>
     </div>
+  {% endfor %}
+  </div>
 {% else %}
     <p>No Articles are availabe.</p>
 {% endif %}

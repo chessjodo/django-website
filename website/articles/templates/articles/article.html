@@ -16,7 +16,7 @@
   <hr>
   <h2>Comments</h2>
   <b>Add Comment:</b>
-  <form action="{% url 'comment' article.id %}" method="post">
+  <form action="{% url 'articles:comment' article.id %}" method="post">
     {% csrf_token %}
     <label for="heading">Heading:</label>
     <textarea id="heading" name="heading" maxlength="150" required></textarea><br>
