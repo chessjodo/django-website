@@ -18,15 +18,17 @@ def home_view(request):
 
 def article(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
-    return render(request, "articles/article.html", {"article": article})
+
+    comments = article.comment_set.all().order_by('-pub_date')
+
+    return render(request, "articles/article.html", {"article": article, "comments":comments})
 
 def comment(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     comment = request.POST["comment"]
-    c = Comment(article_ID=article, heading=request.POST["heading"], text=request.POST["comment"], 
-                pub_date=datetime.now())
-    c.save()
+    heading = request.POST["heading"]
 
-    comments = article.comment_set.all()
+    c = Comment(article_ID=article, heading=heading, text=comment, pub_date=datetime.now())
+    c.save()
 
     return HttpResponseRedirect(reverse("article", args=(article.id,)))

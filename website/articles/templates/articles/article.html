@@ -13,18 +13,22 @@
   {% if article.picture %}
     <img src="{{ article.picture.url }}" alt="a picture" style="max-width:500px">
   {% endif %}
+  <hr>
   <h2>Comments</h2>
+  <b>Add Comment:</b>
   <form action="{% url 'comment' article.id %}" method="post">
     {% csrf_token %}
     <label for="heading">Heading:</label>
-    <textarea id="heading" name="heading" required></textarea><br>
+    <textarea id="heading" name="heading" maxlength="150" required></textarea><br>
     <label for="comment">Text:</label>
-    <textarea id="comment" name="comment" required></textarea><br>
-    <button type="submit" value="Comment">Submit Comment</button>
+    <textarea id="comment" name="comment" maxlength="5000" required></textarea><br>
+    <button type="submit" value="Comment">Post Comment</button>
   </form>
 
-  {% for comment in article.comment_set.all %}
-    <p><b>{{comment.heading}}</b> posted: {{comment.pub_date}}<br>
-      {{comment.text}}<p>
+  {% for comment in comments %}
+    <p><b>{{comment.heading}}</b><br>
+      {{comment.text}}<br>
+    <small>posted: {{comment.pub_date}}</small></p>
   {% endfor %}
+
 </html>
