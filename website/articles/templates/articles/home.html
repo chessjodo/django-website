@@ -1,5 +1,5 @@
-<h1>REAL NEWS</h1>
-<h2><a href="{% url "articles:index"  %}">Articles</a></h2>
+{% include 'base.html' %}
+<h1><a href="{% url "articles:index"  %}">Articles:</a></h1>
 <form action="{% url 'home'%}" method="get">
     <label for="article-sort">Sort by:</label>
     {% csrf_token %}
@@ -20,7 +20,7 @@
     <div>
         {% for article in articles_list %}
             <div style="border: 2px solid black;">
-                <h1><a href="{% url 'articles:article' article.id %}">{{ article.heading }}</a></h1>
+                <h2><a href="{% url 'articles:article' article.id %}">{{ article.heading }}</a></h2>
                 <h5> {{ article.pub_date }} Views: {{ article.view_count }}<br>
                     {% if article.tags.all %}
                     Tags: 
@@ -36,7 +36,7 @@
     <p>No Articles are availabe.</p>
 {% endif %}
 
-<h2><a href="{% url "index"  %}">Authors</a></h2>
+<h1><a href="{% url "index"  %}">Authors:</a></h1>
 {% if authors %}
 <div>
   {% for author in authors %}
