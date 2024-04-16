@@ -2,16 +2,16 @@
 
 <form action="{% url 'index' %}" method="get">
     <label for="sort">Sort by:</label>
-    <select name="sort" id="sort">
-        <option value="name_ascending">Name (A-Z)</option>
-        <option value="name_descending">Name (Z-A)</option>
-        <option value="most_articles">Most Articles Published</option>
-        <option value="least_articles">Least Articles Published</option>
-        <option value="most_recent">Most Recently Published</option>
-        <option value="least_recent">Least Recently Published</option>
+    <select name="sort" id="sort" onchange='if(this.value != 0) { event.preventDefault(); this.form.submit(); }'>
+        <option value="name_ascending" {% if sort == "name_ascending" %} selected {% endif %}>Name (A-Z)</option>
+        <option value="name_descending" {% if sort == "name_descending" %} selected {% endif %}>Name (Z-A)</option>
+        <option value="most_articles" {% if sort == "most_articles" %} selected {% endif %}>Most Articles Published</option>
+        <option value="least_articles" {% if sort == "least_articles" %} selected {% endif %}>Least Articles Published</option>
+        <option value="most_recent" {% if sort == "most_recent" %} selected {% endif %}>Most Recently Published</option>
+        <option value="least_recent" {% if sort == "least_recent" %} selected {% endif %}>Least Recently Published</option>
     </select>
-    <button type="submit">Sort</button>
 </form>
+
 
 {% if authors_lst %}
 <div>
