@@ -19,16 +19,16 @@
   {% endif %}
   <hr>
   <h2>Comments</h2>
-  <b>Add Comment:</b>
-  <form action="{% url 'articles:comment' article.id %}" method="post">
+  <h5>Add Comment:</h5>
+  <form action = "{% url 'articles:comment' article.id %}" method = "post">
     {% csrf_token %}
-    <label for="heading">Heading:</label>
-    <textarea id="heading" name="heading" maxlength="150" required></textarea><br>
-    <label for="comment">Text:</label>
-    <textarea id="comment" name="comment" maxlength="5000" required></textarea><br>
-    <button type="submit" value="Comment">Post Comment</button>
-  </form>
-
+    <h6>Heading:</h6>
+    {{ form.heading }}<br>
+    <h6>Text:</h6>
+    {{ form.comment }}<br>
+    <input type="submit" value="Post Comment">
+  </form><br>
+  <hr>
   {% for comment in comments %}
     <p><b>{{comment.heading}}</b><br>
       {{comment.text}}<br>
