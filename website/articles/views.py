@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from .models import Article, Article_Tag, Comment, Tag
+from .models import Article, Comment, Tag
 
 
 def index(request):
