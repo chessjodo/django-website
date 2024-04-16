@@ -9,7 +9,10 @@
     Published on {{article.pub_date.date}}<br>
     Views: {{article.view_count}}<br>
     {% if tags %}
-      Tags: {{ tags|join:", " }}
+    Tags:
+    {% for tag in tags %}
+    <a href = "{% url 'articles:tag_filter' article.id tag %}">{{ tag }}, </a>
+    {% endfor %}
     {% endif %}
   </p>
   <p>{{article.text}}</p>
