@@ -6,11 +6,11 @@ from django.urls import reverse
 from .models import Article, Article_Tag, Comment, Tag
 
 def index(request):
-    filt, filts = filterer(request)
     articles, sort, sort_options = sorter(request)
+    filtered, filt, filts = filterer(request, articles)
 
     context = {
-        "articles_list": articles, 
+        "articles_list": filtered, 
         "sort_order": sort, 
         "sort_options": sort_options,
         "filt": filt,
@@ -42,11 +42,18 @@ def sorter(request):
 
     return (articles, sort, sort_options)
 
-def filterer(request):
+def filterer(request, articles):
     filter_options = Tag.objects.all()
-    filt = request.GET.get('article-filter')
+    if request.GET.get('article-filter')=="None":
+        filt = "None"
+        filtered = articles
+    elif filt:= request.GET.get('article-filter'):
+        filtered = articles.filter(tags=Tag.objects.get(text=filt))
+    else:
+        filt = "None"
+        filtered = articles
 
-    return (filt, filter_options)
+    return (filtered, filt, filter_options)
 
 def home_view(request):
     return render(request, "home.html", {})
