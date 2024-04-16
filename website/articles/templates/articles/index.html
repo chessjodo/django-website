@@ -24,8 +24,8 @@
           Tags: 
             {% for item in article.tags.all %}
               {{ item.text }}{% if not forloop.last %}, {% endif %}
-            {% endfor %} </h5>
-        {% endif %}
+            {% endfor %}
+        {% endif %}</h5>
       <p> {{ article.text }} </p>
     </div>
   {% endfor %}
