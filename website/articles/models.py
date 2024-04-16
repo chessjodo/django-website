@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Tag(models.Model):
     text = models.CharField(max_length=50)
     count = models.IntegerField(default=0)
@@ -27,7 +28,6 @@ class Article(models.Model):
 
     def add_view(self):
         self.view_count += 1
-        print("add view")
 
     def __str__(self):
         return self.heading
@@ -42,3 +42,10 @@ class Comment(models.Model):
     def __str__(self):
         return self.heading
 
+
+class Article_Tag(models.Model):
+    article_ID = models.ForeignKey(Article, on_delete=models.CASCADE)
+    tag_ID = models.ForeignKey(Tag, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.article_ID) + "+" + str(self.tag_ID)
