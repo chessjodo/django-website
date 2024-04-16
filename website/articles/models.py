@@ -42,9 +42,3 @@ class Comment(models.Model):
     def __str__(self):
         return self.heading
 
-class Article_Tag(models.Model):
-    article_ID = models.ForeignKey(Article, on_delete=models.CASCADE)
-    tag_ID = models.ForeignKey(Tag, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.article_ID) + "+" + str(self.tag_ID)

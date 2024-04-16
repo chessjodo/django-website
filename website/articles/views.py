@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from datetime import datetime
 from django.urls import reverse
 
-from .models import Article, Article_Tag, Comment, Tag
+from .models import Article, Comment, Tag
 
 def index(request):
     articles, sort, sort_options = sorter(request)

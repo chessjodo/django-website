@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-models = (Comment, Tag, Article_Tag)
+models = (Comment, Tag)
 for m in models:
     admin.site.register(m)
 
