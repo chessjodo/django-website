@@ -1,9 +1,33 @@
 {% include 'base.html' %}
+
+<form action="{% url 'index' %}" method="get">
+    <label for="sort">Sort by:</label>
+    <select name="sort" id="sort">
+        <option value="name_ascending">Name (A-Z)</option>
+        <option value="name_descending">Name (Z-A)</option>
+        <option value="most_articles">Most Articles Published</option>
+        <option value="least_articles">Least Articles Published</option>
+        <option value="most_recent">Most Recently Published</option>
+        <option value="least_recent">Least Recently Published</option>
+    </select>
+    <button type="submit">Sort</button>
+</form>
+
 {% if authors_lst %}
 <div>
   {% for author in authors_lst %}
   <ul>
-    <li><a href="{% url "author"  author_id=author.pk %}">{{ author.name }}</a></li>
+    <li><img src="{{ author.picture.url }}" alt="{{ author.name }}'s Picture"
+    style="width: 100px; height: 100px; border-radius: 50%; margin-left: 20px;">
+    <h3> <a href="{% url "author"  author_id=author.pk %}">{{ author.name}}</a></h3>
+    {% if last_published_article %}
+      <p>Last Published Article: <a href="{% url 'articles:article' last_published_article.id %}">{{ last_published_article.heading }}</a></p>
+      {% else %}
+      <p>No articles published yet.</p>
+      {% endif %}
+
+
+  <br> </li>
 
   </ul>
 
