@@ -19,7 +19,11 @@
     {% for article in articles_list %}
     <div style="border: 2px solid black;">
       <h1><a href="{% url 'articles:article' article.id %}">{{ article.heading }}</a></h1>
-      <h5> {{ article.pub_date }} Views: {{ article.view_count }} <h5>
+      <h5> {{ article.pub_date }} Views: {{ article.view_count }}, 
+        Tags: 
+          {% for item in article.tags.all %}
+            {{ item.text }}{% if not forloop.last %}, {% endif %}
+          {% endfor %} </h5>
       <p> {{ article.text }} </p>
     </div>
   {% endfor %}
