@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from .models import Article, Comment, Tag
 from authors.models import Author
+from .forms import CommentForm
 
 def home_view(request):
     articles, sort, sort_options = sorter(request)
@@ -102,7 +103,7 @@ def article(request, article_id):
     return render(
         request,
         "articles/article.html",
-        {"article": article, "comments": comments, "tags": tags},
+        {"article": article, "comments": comments, "tags": tags, "form": CommentForm()},
     )
 
 
