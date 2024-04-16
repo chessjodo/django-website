@@ -7,7 +7,7 @@
       <option value="{{ option_value }}" {% if sort_order == option_value %} selected {% endif %}>{{ option_value }}</option>
     {% endfor %}
   </select>
-  <label for="article-filter">Filer by:</label>
+  <label for="article-filter">Filter by:</label>
   <select name="article-filter" id="article-filter", onchange='if(this.value != 0) { this.form.submit(); }'>
     <option value="None" {% if filt == None %} selected {% endif %}>None</option>
     {% for filter in filters %}

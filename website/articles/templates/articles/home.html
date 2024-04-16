@@ -1,0 +1,50 @@
+<h1>REAL NEWS</h1>
+<h2><a href="{% url "articles:index"  %}">Articles</a></h2>
+<form action="{% url 'home'%}" method="get">
+    <label for="article-sort">Sort by:</label>
+    {% csrf_token %}
+    <select name="article-sort" id="article-sort", onchange='if(this.value != 0) { this.form.submit(); }'>
+        {% for option_value in sort_options %}
+        <option value="{{ option_value }}" {% if sort_order == option_value %} selected {% endif %}>{{ option_value }}</option>
+        {% endfor %}
+    </select>
+    <label for="article-filter">Filter by:</label>
+    <select name="article-filter" id="article-filter", onchange='if(this.value != 0) { this.form.submit(); }'>
+        <option value="None" {% if filt == None %} selected {% endif %}>None</option>
+        {% for filter in filters %}
+        <option value="{{ filter }}" {% if filt == filter.text %} selected {% endif %}>{{ filter }}</option>
+        {% endfor %}
+    </select>
+</form>
+{% if articles_list %}
+    <div>
+        {% for article in articles_list %}
+            <div style="border: 2px solid black;">
+                <h1><a href="{% url 'articles:article' article.id %}">{{ article.heading }}</a></h1>
+                <h5> {{ article.pub_date }} Views: {{ article.view_count }}<br>
+                    {% if article.tags.all %}
+                    Tags: 
+                        {% for item in article.tags.all %}
+                        {{ item.text }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}</h5>
+                <p> {{ article.text }} </p>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No Articles are availabe.</p>
+{% endif %}
+
+<h2><a href="{% url "index"  %}">Authors</a></h2>
+{% if authors %}
+<div>
+  {% for author in authors %}
+  <ul>
+    <li><a href="{% url "author"  author_id=author.pk %}">{{ author.name }}</a></li>
+  </ul>
+  {% endfor %}
+</div>
+{% else %}
+    <p> No Authors yet, be the first to publish!</p>
+{% endif %}
