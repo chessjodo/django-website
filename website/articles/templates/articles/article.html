@@ -7,7 +7,8 @@
   <h1>{{article.heading}}</h1>
   <p>Written by: <a href="{% url 'author' article.author.id %}">{{article.author.name }}</a> <br>
     Published on {{article.pub_date.date}}<br>
-    Views: {{article.view_count}}
+    Views: {{article.view_count}}<br>
+    Tags: {{ tags|join:", " }}
   </p>
   <p>{{article.text}}</p>
   {% if article.picture %}

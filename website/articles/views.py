@@ -44,7 +44,6 @@ def sorter(request):
 
 def filterer(request):
     filter_options = Tag.objects.all()
-    
     filt = request.GET.get('article-filter')
 
     return (filt, filter_options)
@@ -55,10 +54,11 @@ def home_view(request):
 
 def article(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
-
     comments = article.comment_set.all().order_by('-pub_date')
+    pretags = article.tags.all()
+    tags = [item.text for item in pretags]
 
-    return render(request, "articles/article.html", {"article": article, "comments":comments})
+    return render(request, "articles/article.html", {"article": article, "comments":comments, "tags": tags})
 
 def comment(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
