@@ -1,8 +1,7 @@
 from datetime import datetime
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.test import RequestFactory
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from .models import Article, Comment, Tag
@@ -24,12 +23,11 @@ def index(request):
 
 
 def index_filtered(request, article_id, tag):
-    factory = RequestFactory()
-    request = factory.get(
-        "articles/index",
-        {"article-filter": tag, "article-sort": "Newest"},
+    url = (
+        reverse("articles:index")
+        + f"?article-filter={tag}&article-sort=Newest"
     )
-    return index(request)
+    return redirect(url)
 
 
 def sorter(request):
