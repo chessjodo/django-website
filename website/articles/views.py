@@ -5,7 +5,23 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from .models import Article, Comment, Tag
+from authors.models import Author
 
+def home_view(request):
+    articles, sort, sort_options = sorter(request)
+    filtered, filt, filts = filterer(request, articles)
+    authors = Author.objects.order_by("name")
+
+    context = {
+        "articles_list": filtered[:3],
+        "sort_order": sort,
+        "sort_options": sort_options,
+        "filt": filt,
+        "filters": filts,
+        "authors": authors
+    }
+
+    return render(request, "articles/home.html", context)
 
 def index(request):
     articles, sort, sort_options = sorter(request)
@@ -74,9 +90,6 @@ def filterer(request, articles):
 
     return (filtered, filt, filter_options)
 
-
-def home_view(request):
-    return render(request, "home.html", {})
 
 
 def article(request, article_id):
