@@ -6,7 +6,9 @@ from .models import Author, Author_Articles
 
 
 def index(request):
-    authors = Author.objects.all()
+    from articles.models import Article
+
+    authors = Author.objects.annotate(num_articles=Count("article"))
     if sort := request.GET.get("sort"):
         if sort == "A-Z":
             authors = authors.order_by("name")
