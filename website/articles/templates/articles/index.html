@@ -19,6 +19,7 @@
 
 <!-- Show articles -->
 {% if articles_list %}
+<div class="col-md-6">
   <div>
     {% for article in articles_list %}
     <a href="{% url 'articles:article' article.id %}">
@@ -46,3 +47,4 @@
 {% else %}
     <p>No Articles are available.</p>
 {% endif %}
+</div>

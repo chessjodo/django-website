@@ -12,6 +12,7 @@ class Tag(models.Model):
 class Article(models.Model):
     heading = models.CharField(max_length=150)
     text = models.TextField(max_length=10000)
+    preview = models.TextField(max_length=500, default="please add")
     pub_date = models.DateTimeField()
     tags = models.ManyToManyField(Tag)
     picture = models.ImageField(

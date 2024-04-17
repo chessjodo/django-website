@@ -19,6 +19,7 @@
 </form>
 
 <!-- List of 3 articles -->
+<div class="col-md-6">
 {% if articles_list %}
   <div>
     {% for article in articles_list %}
@@ -61,3 +62,4 @@
 {% else %}
     <p> No Authors yet, be the first to publish!</p>
 {% endif %}
+</div>
