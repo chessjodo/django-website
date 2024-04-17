@@ -4,36 +4,36 @@
     <label for="sort">Sort by:</label>
     <select name="sort" id="sort" onchange="this.form.submit()">
         {% for option_value in sort_options %}
-        <option value="{{ option_value }}" {% if sort_order == option_value %} selected {% endif %}>{{ option_value }}</option>
+        <option value="{{ option_value }}" {% if sort_order == option_value %}
+                selected {% endif %}>
+          {{ option_value }}
+        </option>
         {% endfor %}
     </select>
 </form>
 
-{% if authors_lst %}
-<div>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% if authors_lst %}
   {% for author in authors_lst %}
-  <ul>
-    {% if author.picture %}
-    <img src="{{ author.picture.url }}" alt="{{ author.name }}'s Picture"
-    style="width: 200px; height: 200px; border-radius: 50%;  margin-left:
-           20px; margin-top: 20px">
-    {% else %}
-        <h2> {{ author.name }} is faceless! </h2>
-        {% endif %}
-           <h3><a href="{% url "author"  author_id=author.pk %}">{{ author.name}}</a></h3>
-           <h5> Bio: {{ author.bio_text }} </h5>
-           Articles written: {{ author.num_articles }}
-
-
-  <br> </li>
-
-  </ul>
-
+  <div class="col">
+        <div class="card">
+            <div class="card-body">
+              {% if author.picture %}
+              <img src="{{ author.picture.url }}" alt="{{ author.name }}'s Picture"
+                   style="width: 200px; height: 200px; border-radius: 50%;  margin-left:
+                          20px; margin-top: 20px">
+              {% else %}
+              <h2 class: "card-title"> {{ author.name }} is faceless! </h2>
+              {% endif %}
+              <h3 class="card-title"><a href="{% url "author"  author_id=author.pk %}">{{ author.name}}</a></h3>
+              <p class="card-text">Bio: {{ author.bio_text }} </p>
+              <p class="card-text">Articles written: {{ author.num_articles }} </p>
+            </div>
+        </div>
+  </div>
   {% endfor %}
+  {% else %}
+  <p> No Authors yet, be the first to publish!</p>
+  {% endif %}
 </div>
-
-{% else %}
-
-<p> No Authors yet, be the first to publish!</p>
-
-{% endif %}
