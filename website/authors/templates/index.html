@@ -2,29 +2,27 @@
 
 <form action="{% url 'index' %}" method="get">
     <label for="sort">Sort by:</label>
-    <select name="sort" id="sort" onchange='if(this.value != 0) { event.preventDefault(); this.form.submit(); }'>
-        <option value="name_ascending" {% if sort == "name_ascending" %} selected {% endif %}>Name (A-Z)</option>
-        <option value="name_descending" {% if sort == "name_descending" %} selected {% endif %}>Name (Z-A)</option>
-        <option value="most_articles" {% if sort == "most_articles" %} selected {% endif %}>Most Articles Published</option>
-        <option value="least_articles" {% if sort == "least_articles" %} selected {% endif %}>Least Articles Published</option>
-        <option value="most_recent" {% if sort == "most_recent" %} selected {% endif %}>Most Recently Published</option>
-        <option value="least_recent" {% if sort == "least_recent" %} selected {% endif %}>Least Recently Published</option>
+    <select name="sort" id="sort" onchange="this.form.submit()">
+        {% for option_value in sort_options %}
+        <option value="{{ option_value }}" {% if sort_order == option_value %} selected {% endif %}>{{ option_value }}</option>
+        {% endfor %}
     </select>
 </form>
-
 
 {% if authors_lst %}
 <div>
   {% for author in authors_lst %}
   <ul>
+    {% if author.picture %}
     <li><img src="{{ author.picture.url }}" alt="{{ author.name }}'s Picture"
-    style="width: 100px; height: 100px; border-radius: 50%; margin-left: 20px;">
-    <h3> <a href="{% url "author"  author_id=author.pk %}">{{ author.name}}</a></h3>
-    {% if last_published_article %}
-      <p>Last Published Article: <a href="{% url 'articles:article' last_published_article.id %}">{{ last_published_article.heading }}</a></p>
+    style="width: 100px; height: 100px; border-radius: 50%;  margin-left:
+           20px;">
       {% else %}
-      <p>No articles published yet.</p>
-      {% endif %}
+            <div style="width: 100px; height: 100px; border-radius: 50%; margin-left: 20px; background-color: black;"></div>
+          {% endif %}
+
+      <h3> <a href="{% url "author"  author_id=author.pk %}">{{ author.name}}</a></h3>
+
 
 
   <br> </li>

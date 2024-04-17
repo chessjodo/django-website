@@ -6,41 +6,43 @@ from .models import Author, Author_Articles
 
 
 def index(request):
-    from articles.models import Article
-
     authors = Author.objects.all()
-    sort = request.GET.get("sort")
-    if sort == "name_ascending":
-        authors = authors.order_by("name")
-    elif sort == "name_descending":
-        authors = authors.order_by("-name")
-    elif sort == "most_articles":
-        authors = authors.annotate(article_count=Count("article")).order_by(
-            "-article_count"
-        )
-    elif sort == "least_articles":
-        authors = authors.annotate(article_count=Count("article")).order_by(
-            "article_count"
-        )
-    elif sort == "most_recent":
-        authors = authors.annotate(
-            max_pub_date=Max("article__pub_date")
-        ).order_by("-max_pub_date")
-    elif sort == "least_recent":
-        authors = authors.annotate(
-            min_pub_date=Min("article__pub_date")
-        ).order_by("min_pub_date")
+    if sort := request.GET.get("sort"):
+        if sort == "A-Z":
+            authors = authors.order_by("name")
+        elif sort == "Z-A":
+            authors = authors.order_by("-name")
+        elif sort == "Most Articles":
+            authors = authors.annotate(
+                article_count=Count("article")
+            ).order_by("-article_count")
+        elif sort == "Least Articles":
+            authors = authors.annotate(
+                article_count=Count("article")
+            ).order_by("article_count")
+        elif sort == "Most Recently Published":
+            authors = authors.annotate(
+                max_pub_date=Max("article__pub_date")
+            ).order_by("-max_pub_date")
+        else:
+            authors = authors.annotate(
+                min_pub_date=Min("article__pub_date")
+            ).order_by("min_pub_date")
     else:
         authors = authors.order_by("name")
-        sort = "name_ascending"
-    if "author_id" in request.GET:
-        author_id = request.GET.get("author_id")
-        author = get_object_or_404(Author, pk=author_id)
-        articles = Article.objects.filter(author=author)
+        sort = "A-Z"
+    sort_options = (
+        "A-Z",
+        "Z-A",
+        "Most Articles",
+        "Least Articles",
+        "Most Recently Published",
+        "Least Recently Published",
+    )
     context = {
         "authors_lst": authors,
         "sort_p": sort,
-        #       "articles": articles,
+        "sort_options": sort_options,
     }
     return render(request, "index.html", context)
 

@@ -23,4 +23,3 @@ class Author_Articles(models.Model):
 
     author_id = models.OneToOneField(Author, on_delete=models.CASCADE)
     article_id = models.OneToOneField(Article, on_delete=models.CASCADE)
-
