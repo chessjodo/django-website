@@ -19,6 +19,7 @@
 </form>
 
 <!-- List of 3 articles -->
+<div class="col-md-6">
 {% if articles_list %}
   <div>
     {% for article in articles_list %}
@@ -29,7 +30,7 @@
         <h6 class="card-subtitle mb-2 text-body-secondary"> {{ article.pub_date }} Views: {{ article.view_count }}</h6>
       </div>
       <div class="card-body">
-        <p> {{ article.text }} </p>
+        <p> {{ article.preview }} </p>
       </div>
       {% if article.tags.all %}
        <div class="card-footer">
@@ -61,3 +62,4 @@
 {% else %}
     <p> No Authors yet, be the first to publish!</p>
 {% endif %}
+</div>

@@ -6,8 +6,8 @@
   <select name="sort" id="sort", onchange='if(this.value != 0) { this.form.submit(); }'>
     {% for option_value in sort_options %}
       <option value="{{ option_value }}" {% if sort_order == option_value %} selected {% endif %}>{{ option_value }}</option>
-        {% endfor %}
-    </select>
+    {% endfor %}
+  </select>
 </form>
 
 

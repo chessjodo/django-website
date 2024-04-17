@@ -10,7 +10,7 @@ def index(request):
     authors, sort, sort_options = sorter(request)
     context = {
         "authors_lst": authors,
-        "sort_p": sort,
+        "sort_order": sort,
         "sort_options": sort_options,
     }
     return render(request, "index.html", context)
@@ -43,6 +43,7 @@ def sorter(request):
     else:
         authors = authors.order_by("name")
         sort = "A-Z"
+
     sort_options = (
         "A-Z",
         "Z-A",
