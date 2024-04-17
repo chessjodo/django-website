@@ -1,4 +1,5 @@
 from django.db import models
+from django_resized import ResizedImageField
 
 
 class Author_Manager(models.Manager):
@@ -10,8 +11,12 @@ class Author(models.Model):
     name = models.CharField(max_length=50)
     bio_text = models.CharField(max_length=200)
     bio_edit = models.DateTimeField("info date edited")
-    picture = models.ImageField(
-        upload_to="author_pictures/", blank=True, null=True
+    picture = ResizedImageField(
+        size=[300, 300],
+        quality=75,
+        upload_to="author_pictures/",
+        force_format="WEBP",
+        blank=True,
     )
 
     def __str__(self):
