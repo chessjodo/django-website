@@ -7,6 +7,7 @@ from .models import Author, Author_Articles
 
 
 def index(request):
+<<<<<<< HEAD
     authors, sort, sort_options = sorter(request)
     context = {
         "authors_lst": authors,
@@ -21,6 +22,13 @@ def sorter(request):
     if order := request.GET.get("sort"):
         sort = order
         if order == "A-Z":
+=======
+    from articles.models import Article
+
+    authors = Author.objects.annotate(num_articles=Count("article"))
+    if sort := request.GET.get("sort"):
+        if sort == "A-Z":
+>>>>>>> d33e5dd79e00c75e370f40bc1d20685fe12de844
             authors = authors.order_by("name")
         elif order == "Z-A":
             authors = authors.order_by("-name")
