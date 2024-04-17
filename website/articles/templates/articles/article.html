@@ -14,7 +14,7 @@
     {% endfor %}
     {% endif %}
   </p>
-  <p>{{article.text}}</p>
+  <p>{{article.text|linebreaks}}</p>
   {% if article.picture %}
     <img src="{{ article.picture.url }}" alt="a picture" style="max-width:500px">
   {% endif %}
