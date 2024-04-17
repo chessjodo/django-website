@@ -1,10 +1,9 @@
-Topic:
-Site with Newspaper style articles on conspiracy theories.
+# Topic: Site with Newspaper style articles on conspiracy theories.
 
 To setup the website, install the requirements from the requirements.txt file.
 Run the website using "./manage.py runserver".
 
-Functionality:
+## Functionality:
 - Home Page:
   - List of articles with title, publication date, a preview of the text and
   given tags.
@@ -25,7 +24,13 @@ Both the Home Page and the Articles Page can be sorted by publication date,
   - Display of previously submitted comments
 
 
-Sources:
+## Sources:
+- List of Django models fields: https://www.geeksforgeeks.org/django-model-data-types-and-fields-list/
+- Articles generated with ChatGPT
+- Djanogo tutorial: https://docs.djangoproject.com/en/5.0/intro/tutorial01/
+- Many to many relations: https://docs.djangoproject.com/en/5.0/topics/db/examples/many_to_many/
+- Bootstrap for formatting
 
-List of Django models fields:
-https://www.geeksforgeeks.org/django-model-data-types-and-fields-list/
+## Work-done
+- Tom & Jonas: Article side part & home page
+- Andrei & Iga: Author side part
