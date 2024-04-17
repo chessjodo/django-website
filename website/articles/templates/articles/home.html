@@ -1,5 +1,6 @@
 {% include 'base.html' %}
 <h1><a href="{% url "articles:index"  %}">Articles:</a></h1>
+<!-- Form to sort and filter articles -->
 <form action="{% url 'home'%}" method="get">
     <label for="article-sort">Sort by:</label>
     {% csrf_token %}
@@ -16,6 +17,8 @@
         {% endfor %}
     </select>
 </form>
+
+<!-- List of 3 articles -->
 {% if articles_list %}
     <div>
         {% for article in articles_list %}
@@ -36,6 +39,7 @@
     <p>No Articles are availabe.</p>
 {% endif %}
 
+<!-- List of authors -->
 <h1><a href="{% url "index"  %}">Authors:</a></h1>
 {% if authors %}
 <div>
