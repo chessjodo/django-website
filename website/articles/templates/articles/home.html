@@ -20,23 +20,32 @@
 
 <!-- List of 3 articles -->
 {% if articles_list %}
-    <div>
-        {% for article in articles_list %}
-            <div style="border: 2px solid black;">
-                <h2><a href="{% url 'articles:article' article.id %}">{{ article.heading }}</a></h2>
-                <h5> {{ article.pub_date }} Views: {{ article.view_count }}<br>
-                    {% if article.tags.all %}
-                    Tags: 
-                        {% for item in article.tags.all %}
-                        {{ item.text }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    {% endif %}</h5>
-                <p> {{ article.text }} </p>
-            </div>
-        {% endfor %}
-    </div>
+  <div>
+    {% for article in articles_list %}
+    <a href="{% url 'articles:article' article.id %}">
+    <div class="card">
+      <div class = "card-header">
+        <h2 class="card-title">{{ article.heading }}</h2>
+        <h6 class="card-subtitle mb-2 text-body-secondary"> {{ article.pub_date }} Views: {{ article.view_count }}</h6>
+      </div>
+      <div class="card-body">
+        <p> {{ article.text }} </p>
+      </div>
+      {% if article.tags.all %}
+       <div class="card-footer">
+         Tags:
+            {% for item in article.tags.all %}
+              {{ item.text }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+       </div>
+      {% endif %}
+    </a>
+  </div>
+  <br>
+  {% endfor %}
+</div>
 {% else %}
-    <p>No Articles are availabe.</p>
+    <p>No Articles are available.</p>
 {% endif %}
 
 <!-- List of authors -->
