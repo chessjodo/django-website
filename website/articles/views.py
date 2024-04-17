@@ -9,6 +9,10 @@ from authors.models import Author
 from .forms import CommentForm
 
 def home_view(request):
+    """The home view of the website, displays 3 articles and allows articles to be 
+    sorted and filtered, also displays authors"""
+    
+    # sort and filter articles by user given parameters
     articles, sort, sort_options = sorter(request)
     filtered, filt, filts = filterer(request, articles)
     authors = Author.objects.order_by("name")
@@ -25,6 +29,8 @@ def home_view(request):
     return render(request, "articles/home.html", context)
 
 def index(request):
+    """The articles view, displays all articles and allows articles to be sorted 
+    and filtered"""
     articles, sort, sort_options = sorter(request)
     filtered, filt, filts = filterer(request, articles)
 
@@ -40,6 +46,8 @@ def index(request):
 
 
 def index_filtered(request, article_id, tag):
+    """View to handle tag being clicked on article page"""
+
     url = (
         reverse("articles:index")
         + f"?article-filter={tag}&article-sort=Newest"
@@ -48,6 +56,9 @@ def index_filtered(request, article_id, tag):
 
 
 def sorter(request):
+    """helper function that sorts articles, returns a sorted list, the sorting parameter
+    and all sort options"""
+
     if order := request.GET.get("article-sort"):
         sort = order
         if order == "Newest":
@@ -79,6 +90,9 @@ def sorter(request):
 
 
 def filterer(request, articles):
+    """filtering function that filters articles, returns a filtered list, the filtering parameter
+    and all filter options"""
+
     filter_options = Tag.objects.all()
     if request.GET.get("article-filter") == "None":
         filt = "None"
@@ -94,10 +108,16 @@ def filterer(request, articles):
 
 
 def article(request, article_id):
+    """The article view, adds one to the view counter when the view is called"""
+
     article = get_object_or_404(Article, pk=article_id)
     article.add_view()
     article.save()
+
+    # get comments and sort them
     comments = article.comment_set.all().order_by("-pub_date")
+    
+    #get tag text
     pretags = article.tags.all()
     tags = [item.text for item in pretags]
     return render(
@@ -108,10 +128,14 @@ def article(request, article_id):
 
 
 def comment(request, article_id):
+    """view to handle user commenting"""
+
+    #get article and comment
     article = get_object_or_404(Article, pk=article_id)
     comment = request.POST["comment"]
     heading = request.POST["heading"]
 
+    #save comment
     c = Comment(
         article_ID=article,
         heading=heading,
@@ -120,6 +144,7 @@ def comment(request, article_id):
     )
     c.save()
 
+    #go back to article
     return HttpResponseRedirect(
         reverse("articles:article", args=(article.id,))
     )
