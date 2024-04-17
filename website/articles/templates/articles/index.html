@@ -21,19 +21,27 @@
 {% if articles_list %}
   <div>
     {% for article in articles_list %}
-    <div style="border: 2px solid black;">
-      <h1><a href="{% url 'articles:article' article.id %}">{{ article.heading }}</a></h1>
-      <h5> {{ article.pub_date }} Views: {{ article.view_count }}<br>
-        {% if article.tags.all %}
-          Tags:
+    <a href="{% url 'articles:article' article.id %}" class="card-link">
+    <div class="card">
+      <div class = "card-header">
+        <h2 class="card-title">{{ article.heading }}</h2>
+        <h6 class="card-subtitle mb-2 text-body-secondary"> {{ article.pub_date }} Views: {{ article.view_count }}</h6>
+      </div>
+      <div class="card-body">
+        <p> {{ article.text }} </p>
+      </div>
+      {% if article.tags.all %}
+       <div class="card-footer">
+         Tags:
             {% for item in article.tags.all %}
               {{ item.text }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
-        {% endif %}</h5>
-      <p> {{ article.text }} </p>
-    </div>
-  {% endfor %}
+       </div>
+      {% endif %}
+    </a><br>
   </div>
+  {% endfor %}
+</div>
 {% else %}
     <p>No Articles are available.</p>
 {% endif %}
