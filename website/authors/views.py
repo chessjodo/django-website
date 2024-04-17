@@ -1,3 +1,4 @@
+from articles.models import Article
 from django.db.models import Count, Max, Min
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -6,21 +7,32 @@ from .models import Author, Author_Articles
 
 
 def index(request):
-    authors = Author.objects.all()
-    if sort := request.GET.get("sort"):
-        if sort == "A-Z":
+    authors, sort, sort_options = sorter(request)
+    context = {
+        "authors_lst": authors,
+        "sort_p": sort,
+        "sort_options": sort_options,
+    }
+    return render(request, "index.html", context)
+
+
+def sorter(request):
+    authors = Author.objects.annotate(num_articles=Count("article"))
+    if order := request.GET.get("sort"):
+        sort = order
+        if order == "A-Z":
             authors = authors.order_by("name")
-        elif sort == "Z-A":
+        elif order == "Z-A":
             authors = authors.order_by("-name")
-        elif sort == "Most Articles":
+        elif order == "Most Articles":
             authors = authors.annotate(
                 article_count=Count("article")
             ).order_by("-article_count")
-        elif sort == "Least Articles":
+        elif order == "Least Articles":
             authors = authors.annotate(
                 article_count=Count("article")
             ).order_by("article_count")
-        elif sort == "Most Recently Published":
+        elif order == "Most Recently Published":
             authors = authors.annotate(
                 max_pub_date=Max("article__pub_date")
             ).order_by("-max_pub_date")
@@ -39,12 +51,7 @@ def index(request):
         "Most Recently Published",
         "Least Recently Published",
     )
-    context = {
-        "authors_lst": authors,
-        "sort_p": sort,
-        "sort_options": sort_options,
-    }
-    return render(request, "index.html", context)
+    return (authors, sort, sort_options)
 
 
 def author(request, author_id):
