@@ -19,9 +19,10 @@
 
 <!-- Show articles -->
 {% if articles_list %}
+<div class="col-md-6">
   <div>
     {% for article in articles_list %}
-    <a href="{% url 'articles:article' article.id %}" class="card-link">
+    <a href="{% url 'articles:article' article.id %}">
     <div class="card">
       <div class = "card-header">
         <h2 class="card-title">{{ article.heading }}</h2>
@@ -38,10 +39,12 @@
             {% endfor %}
        </div>
       {% endif %}
-    </a><br>
+    </a>
   </div>
+  <br>
   {% endfor %}
 </div>
 {% else %}
     <p>No Articles are available.</p>
 {% endif %}
+</div>
